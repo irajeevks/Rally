@@ -1,7 +1,9 @@
 import SwiftUI
 
-enum Tab: Int, CaseIterable {
+enum TabItem: Int, CaseIterable, Identifiable {
     case home = 0, rally, center, trophies, profile
+    
+    var id: Int { self.rawValue }
 
     var title: String {
         switch self {
@@ -22,6 +24,21 @@ enum Tab: Int, CaseIterable {
         case .profile: return "person"
         }
     }
+    
+    var image: Image {
+        switch self {
+        case .home:
+            Image(.house)
+        case .rally:
+            Image(.rally)
+        case .center:
+            Image(.photo)
+        case .trophies:
+            Image(.trophy)
+        case .profile:
+            Image(.accounts)
+        }
+    }
 
     var selectedIcon: String {
         return icon + ".fill"
@@ -40,19 +57,13 @@ enum Tab: Int, CaseIterable {
 }
 
 struct MainTabView: View {
-    @State private var selectedTab: Tab = .rally
+    @State private var selectedTab: TabItem = .rally
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            ForEach(Tab.allCases, id: \.self) { tab in
-                tab.view
-                    .tabItem {
-                        Image(systemName: selectedTab == tab ? tab.selectedIcon : tab.icon)
-                        Text(tab.title)
-                    }
-                    .tag(tab)
-            }
+        AppTabView(items: TabItem.allCases, selectedTab: $selectedTab) { tabItem in
+            tabItem.view
         }
-        .accentColor(.pink)
     }
 }
+
+extension TabItem: TabItemProvider {}
