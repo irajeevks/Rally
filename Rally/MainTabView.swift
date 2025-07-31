@@ -67,3 +67,7 @@ struct MainTabView: View {
 }
 
 extension TabItem: TabItemProvider {}
+
+#Preview {
+    MainTabView()
+}

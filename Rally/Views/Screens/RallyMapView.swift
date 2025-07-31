@@ -56,34 +56,31 @@ struct RallyMapView: View {
                 }
             }
             .ignoresSafeArea()
-
-            VStack(spacing: 0) {
-                HStack {
-                    Button(action: {
-                        // Add back navigation action here
-                    }) {
-                        Text("← Back to Rally")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.white)
-                    }
-
-                    Spacer()
-
-                    Text("2500 points earned")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.white)
+            .overlay(alignment: .topTrailing) {
+                VStack(spacing: 16) {
+                    Image(systemName: "square.stack.3d.up.fill")
+                        .foregroundStyle(.white)
+                        .font(.title)
+                        .padding(8)
+                        .background(Color(.accentNeutral800), in: .circle)
+                    
+                    Image(systemName: "location.fill")
+                        .font(.title)
+                        .foregroundStyle(Color(.systemBlue))
+                        .padding(8)
+                        .background(Material.regular, in: .rect(cornerRadius: 8))
                 }
-                .padding(.horizontal)
-                .padding(.top, 52)
-                .padding(.bottom, 12)
-                .background(
-                    LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.6), Color.clear]),
-                                   startPoint: .top, endPoint: .bottom)
-                )
-
-                Spacer()
-                RallyBottomSheet()
+                .padding(12)
             }
+            
+            RallyBottomSheet()
+        }
+        .safeAreaInset(edge: .top) {
+            NavigationBarView()
         }
     }
+}
+
+#Preview {
+    RallyMapView()
 }

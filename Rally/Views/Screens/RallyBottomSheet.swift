@@ -3,6 +3,7 @@ import SwiftUI
 struct RallyBottomSheet: View {
     @GestureState private var dragOffset = CGSize.zero
     @State private var offset: CGFloat = 300
+    @Environment(\.additionalTabInset) var additionalTabInset
 
     var body: some View {
         ZStack {
@@ -87,7 +88,7 @@ struct RallyBottomSheet: View {
                     if value.translation.height < -50 {
                         offset = 0
                     } else if value.translation.height > 50 {
-                        offset = 200
+                        offset = 600
                     }
                 }
         )
