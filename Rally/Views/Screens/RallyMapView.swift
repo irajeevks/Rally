@@ -38,10 +38,10 @@ struct RallyMapView: View {
             Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: [RallyAnnotation(coordinate: rallyLocation)]) { item in
                 MapAnnotation(coordinate: item.coordinate) {
                     VStack {
-                        Image(systemName: "flag.circle.fill")
+                        Image(.logoStamp)
                             .resizable()
-                            .frame(width: 32, height: 32)
-                            .foregroundColor(.red)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 62.5)
                         Text("Kings Down Rally 2025")
                             .font(.caption2)
                             .padding(4)

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RallyBottomSheet: View {
     @GestureState private var dragOffset = CGSize.zero
-    @State private var offset: CGFloat = 300
+    @State private var offset: CGFloat = 550
     @Environment(\.additionalTabInset) var additionalTabInset
 
     var body: some View {
@@ -73,10 +73,12 @@ struct RallyBottomSheet: View {
                 .padding(.horizontal)
 
                 EntryListView()
+                    .safeAreaPadding(.bottom, additionalTabInset)
             }
             .padding(.bottom, 20)
             .background(Color.black)
             .cornerRadius(30, corners: [.topLeft, .topRight])
+            .offset(y: additionalTabInset + 34)
         }
         .offset(y: offset + dragOffset.height)
         .gesture(
@@ -88,7 +90,7 @@ struct RallyBottomSheet: View {
                     if value.translation.height < -50 {
                         offset = 0
                     } else if value.translation.height > 50 {
-                        offset = 600
+                        offset = 550
                     }
                 }
         )
