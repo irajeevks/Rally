@@ -9,11 +9,23 @@ struct InitialsCircle: View {
     }
 
     var body: some View {
-        Text(initials)
-            .font(.system(size: 10, weight: .bold))
-            .foregroundColor(.white)
-            .frame(width: 36, height: 36)
-            .background(color)
-            .clipShape(Circle())
+        HStack {
+            Text(initials)
+                .font(.appFont(.regular, size: 11))
+                .foregroundColor(.white)
+                .frame(width: 36, height: 36)
+                .background(color)
+                .clipShape(Circle())
+            
+            Text(name)
+                .font(.appFont(.medium, size: 14))
+                .padding(.trailing, 16)
+                .foregroundStyle(.white)
+        }
+        .background {
+            color.opacity(0.25).blur(radius: 8)
+        }
+        .clipShape(.capsule)
+        .background(color.opacity(0.5), in: .capsule)
     }
 }
