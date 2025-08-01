@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct FilterButton: View {
     let title: String
     let strokeColor: Color

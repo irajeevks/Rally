@@ -1,12 +1,6 @@
-//
-//  AppTabBarView.swift
-//  Rally
-//
-//  Created by Rajeev on 31/07/25.
-//
+
 
 import SwiftUI
-
 struct AppTabBarView<Tab: TabItemProvider>: View where Tab.AllCases: RandomAccessCollection, Tab: Identifiable {
     @Binding var selectedTab: Tab
     var body: some View {

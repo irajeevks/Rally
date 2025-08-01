@@ -1,25 +1,22 @@
 import SwiftUI
-
 struct FilterDropdown: View {
     let title: String
-    let options: [String]
-    @Binding var selected: String
+    @State private var selection: String = ""
 
     var body: some View {
         Menu {
-            ForEach(options, id: \.self) { option in
-                Button(option) {
-                    selected = option
-                }
-            }
+            Button("All", action: { selection = "All" })
+            Button("WRC", action: { selection = "WRC" })
+            Button("WRC2", action: { selection = "WRC2" })
         } label: {
-            Text(selected)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 10)
-                .background(Color.white.opacity(0.1))
-                .cornerRadius(14)
-                .foregroundColor(.white)
-                .font(.system(size: 13, weight: .medium))
+            HStack {
+                Text(selection.isEmpty ? title : selection)
+                Image(systemName: "chevron.down")
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(8)
         }
     }
 }

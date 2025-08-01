@@ -1,12 +1,4 @@
-//
-//  TabBarShape.swift
-//  Rally
-//
-//  Created by Rajeev on 31/07/25.
-//
-
 import SwiftUI
-
 struct TabBarShape: Shape {
     var bumpHeight: CGFloat = 25
     

@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct EntryListView: View {
     let entries: [RallyEntry] = RallyEntry.samples
 

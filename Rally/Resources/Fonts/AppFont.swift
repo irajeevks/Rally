@@ -1,10 +1,3 @@
-//
-//  AppFont.swift
-//  Rally
-//
-//  Created by Ratnesh Jain on 31/07/25.
-//
-
 import Foundation
 import UIKit
 import SwiftUI

@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct EntryListItem: View {
     let entry: RallyEntry
 

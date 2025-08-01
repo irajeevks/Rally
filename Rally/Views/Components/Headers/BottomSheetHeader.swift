@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct BottomSheetHeader: View {
     var body: some View {
         HStack {

@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct GlowingBackground: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 40)

@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct InitialsCircle: View {
     let name: String
     let color: Color

@@ -1,10 +1,3 @@
-//
-//  AppTabBarView.swift
-//  Rally
-//
-//  Created by Rajeev on 31/07/25.
-//
-
 import Foundation
 import SwiftUI
 
