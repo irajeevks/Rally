@@ -4,13 +4,12 @@ struct EntryListItem: View {
     let entry: RallyEntry
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 12) {
             if let driver = entry.driver, let codriver = entry.codriver {
                 HStack {
-                    InitialsCircle(name: driver, color: .blue)
-                    InitialsCircle(name: codriver, color: .pink)
+                    InitialsCircle(name: driver, color: .accentNeutralUltraLightBlue, textColor: .black)
+                    InitialsCircle(name: codriver, color: .accentNeutralPink, textColor: .white)
                 }
-                .zIndex(100)
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(driver)
@@ -36,11 +35,25 @@ struct EntryListItem: View {
                 Spacer()
                 Text("#\(entry.entryNumber ?? 0)")
                     .font(.appFont(.bold, size: 65))
-                    .foregroundColor(.white.opacity(0.5))
+                    .foregroundColor(.tertiary200)
+                    .opacity(0.75)
             }
-            .offset(x: -8, y: 16)
+            .offset(x: -12, y: 24)
         }
         .background(LinearGradient(colors: [Color(.accentNeutral800), Color(.accentNeutral950)], startPoint: .leading, endPoint: .trailing))
+        .overlay {
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.accentNeutral750, lineWidth: 1)
+        }
         .cornerRadius(16)
+    }
+}
+
+#Preview {
+    ScrollView {
+        LazyVStack {
+            EntryListItem(entry: RallyEntry.samples[0])
+        }
+        .padding()
     }
 }

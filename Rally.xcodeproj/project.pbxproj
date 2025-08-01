@@ -411,6 +411,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rally/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App requires location access to show the rally.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "App requires location access to show the rally.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "App requires location access to show the rally.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App requires location access to show the rally.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -439,6 +443,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rally/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App requires location access to show the rally.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "App requires location access to show the rally.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "App requires location access to show the rally.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App requires location access to show the rally.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

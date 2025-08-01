@@ -27,6 +27,11 @@ struct AppTabBarView<Tab: TabItemProvider>: View where Tab.AllCases: RandomAcces
         .background {
             TabBarShape(bumpHeight: 15)
                 .fill(LinearGradient(colors: [Color.accentNeutral800, Color.accentNeutral950.opacity(0.5)], startPoint: .bottom, endPoint: .top))
+                .background {
+                    TabBarShape(bumpHeight: 15)
+                        .fill(LinearGradient(colors: [Color.accentNeutral800, Color.accentNeutral950.opacity(0.5)], startPoint: .bottom, endPoint: .top))
+                        .blur(radius: 24)
+                }
                 .ignoresSafeArea()
         }
     }

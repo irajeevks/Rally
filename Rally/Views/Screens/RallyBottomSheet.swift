@@ -2,23 +2,11 @@ import SwiftUI
 
 struct RallyBottomSheet: View {
     @GestureState private var dragOffset = CGSize.zero
-    @State private var offset: CGFloat = 550
+    @State private var offset: CGFloat = 500
     @Environment(\.additionalTabInset) var additionalTabInset
 
     var body: some View {
         ZStack {
-            // Glowing background effect
-            RoundedRectangle(cornerRadius: 40)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: [Color.purple.opacity(0.6), Color.pink.opacity(0.4)]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .blur(radius: 60)
-                .opacity(0.6)
-                .offset(y: 40)
 
             VStack(spacing: 16) {
                 Capsule()
@@ -26,49 +14,60 @@ struct RallyBottomSheet: View {
                     .foregroundColor(.gray.opacity(0.5))
                     .padding(.top, 12)
 
-                HStack {
+                HStack(spacing: 26) {
                     Button(action: {
                         // Back action
                     }) {
                         HStack {
-                            Image(systemName: "chevron.left")
+                            Image(.backArrow)
                                 .foregroundColor(.white)
                             Text("Back to Rally")
-                                .font(.system(size: 14, weight: .medium))
+                                .font(.appFont(.bold, size: 18))
                                 .foregroundColor(.white)
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Color.white.opacity(0.1))
+                        .background(Color.accentNeutral750)
                         .cornerRadius(20)
                     }
 
-                    Spacer()
-                    VStack(alignment: .center) {
+                    VStack(alignment: .leading) {
                         Text("Entry List")
                             .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.appFont(.bold, size: 20))
                         Text("125 Entries")
                             .foregroundColor(.cyan)
-                            .font(.system(size: 12, weight: .regular))
+                            .font(.appFont(.regular, size: 12))
                     }
 
                     Spacer()
 
-                    Text("RSAC\nSCOTTISH RALLY\n2025")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.trailing)
-                        .padding(8)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.white, lineWidth: 1)
-                        )
+                    Image(.logoStamp)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 64)
                 }
                 .padding(.horizontal, 16)
+                
                 HStack(spacing: 12) {
-                    FilterButton(title: "Select Championship")
-                    FilterButton(title: "Select Car Class")
+                    FilterButton(
+                        title: "Select Championship",
+                        strokeColor: .accentNeutralPink,
+                        menuItems: [
+                            "Formula One World Championship",
+                            "World Endurance Championship",
+                            "World Rally Championship",
+                        ]
+                    )
+                    FilterButton(
+                        title: "Select Car Class",
+                        strokeColor: .tertiaryTint,
+                        menuItems: [
+                            "Touring Cars",
+                            "Formula Cars (Open-Wheel)",
+                            "GT (Grand Touring) Cars"
+                        ]
+                    )
                 }
                 .padding(.horizontal)
 
@@ -76,11 +75,15 @@ struct RallyBottomSheet: View {
                     .safeAreaPadding(.bottom, additionalTabInset)
             }
             .padding(.bottom, 20)
-            .background(Color.black)
+            .background(LinearGradient(
+                gradient: Gradient(colors: [Color.accentNeutral800, .black]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            ))
             .cornerRadius(30, corners: [.topLeft, .topRight])
             .offset(y: additionalTabInset + 34)
         }
-        .offset(y: offset + dragOffset.height)
+        .offset(y: max(0, min(offset + dragOffset.height, 550)))
         .gesture(
             DragGesture()
                 .updating($dragOffset) { value, state, _ in
@@ -90,7 +93,7 @@ struct RallyBottomSheet: View {
                     if value.translation.height < -50 {
                         offset = 0
                     } else if value.translation.height > 50 {
-                        offset = 550
+                        offset = 500
                     }
                 }
         )
@@ -116,4 +119,8 @@ struct RoundedCorner: Shape {
         )
         return Path(path.cgPath)
     }
+}
+
+#Preview {
+    RallyBottomSheet()
 }

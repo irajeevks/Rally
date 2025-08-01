@@ -3,20 +3,36 @@ import MapKit
 import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
+    private let manager = CLLocationManager()
+
     @Published var userLocation: CLLocationCoordinate2D?
+    @Published var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     override init() {
         super.init()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+
+    func requestLocation() async {
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        userLocation = locations.first?.coordinate
+        if let location = locations.first {
+            DispatchQueue.main.async {
+                self.userLocation = location.coordinate
+                self.cameraPosition = .camera(MapCamera(centerCoordinate: location.coordinate, distance: 1000))
+            }
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error.localizedDescription)")
     }
 }
+
 
 struct RallyAnnotation: Identifiable {
     let id = UUID()
@@ -35,34 +51,33 @@ struct RallyMapView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: [RallyAnnotation(coordinate: rallyLocation)]) { item in
-                MapAnnotation(coordinate: item.coordinate) {
-                    VStack {
+            Map(position: $locationManager.cameraPosition) {
+                if let userLocation = locationManager.userLocation {
+                    // Custom pin annotation at user location
+                    Annotation("", coordinate: userLocation) {
                         Image(.logoStamp)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 62.5)
-                        Text("Kings Down Rally 2025")
-                            .font(.caption2)
-                            .padding(4)
-                            .background(Color.white)
-                            .cornerRadius(6)
+                            .frame(width: 62)
                     }
                 }
             }
-            .onAppear {
-                if let userLocation = locationManager.userLocation {
-                    region.center = userLocation
-                }
-            }
             .ignoresSafeArea()
+            .task {
+                await locationManager.requestLocation()
+            }
             .overlay(alignment: .topTrailing) {
                 VStack(spacing: 16) {
-                    Image(systemName: "square.stack.3d.up.fill")
-                        .foregroundStyle(.white)
-                        .font(.title)
-                        .padding(8)
-                        .background(Color(.accentNeutral800), in: .circle)
+                    Menu {
+                        Button("Signal", systemImage: "location.fill") {}
+                        Button("Video", systemImage: "location.fill") {}
+                    } label: {
+                        Image(systemName: "square.stack.3d.up.fill")
+                            .foregroundStyle(.white)
+                            .font(.title)
+                            .padding(8)
+                            .background(Color(.accentNeutral800), in: .circle)
+                    }
                     
                     Image(systemName: "location.fill")
                         .font(.title)
