@@ -103,3 +103,6 @@ Rally/
 
 Created by **Rajeev Singh**, 2025  
 UI/UX based on Rally Championship App design (Figma reference included).
+
+
+Note - Please check the attached image/Video for Referance
